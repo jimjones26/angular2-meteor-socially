@@ -7,7 +7,7 @@ import { Parties } from './../../../both/collections/parties.collection';
 import template from './app.component.html';
 
 @Component({
-  selector: 'app',
+  selector: 'app-root',
   template
 })
 export class AppComponent {
