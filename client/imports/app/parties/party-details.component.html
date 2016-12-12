@@ -1,0 +1,6 @@
+<header *ngIf="party">
+  <h2>{{party.name}}</h2>
+  <p>{{party.description}}</p>
+  <p>{{party.location}}</p>
+</header>
+<a [routerLink]="['/']">Back</a>
