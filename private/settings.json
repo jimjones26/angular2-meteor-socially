@@ -1,8 +1,0 @@
-{
-  "galaxy.meteor.com": {
-    "env": {
-      "ROOT_URL": "http://jimjones26.meteorapp.com",
-      "MONGO_URL": "mongodb://admin:bignerd24@ds052819.mlab.com:52819/devmongodb"
-    }
-  }
-}
