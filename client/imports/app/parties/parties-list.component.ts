@@ -1,3 +1,4 @@
+import { InjectUser } from 'angular2-meteor-accounts-ui';
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
@@ -10,8 +11,10 @@ import template from './parties-list.component.html';
   selector: 'app-parties-list',
   template
 })
+@InjectUser('user')
 export class PartiesListComponent {
   parties: Observable<Party[]>;
+  user: Meteor.User;
 
   constructor() {
     this.parties = Parties.find({}).zone();

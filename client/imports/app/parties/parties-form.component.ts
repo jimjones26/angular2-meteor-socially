@@ -1,3 +1,4 @@
+import { InjectUser } from 'angular2-meteor-accounts-ui';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Meteor } from 'meteor/meteor';
@@ -10,8 +11,10 @@ import template from './parties-form.component.html';
   selector: 'app-parties-form',
   template
 })
+@InjectUser('user')
 export class PartiesFormComponent implements OnInit {
   addForm: FormGroup;
+  user: Meteor.User;
 
   constructor(private formBuilder: FormBuilder) { }
 
@@ -21,8 +24,6 @@ export class PartiesFormComponent implements OnInit {
       description: [],
       location: ['', Validators.required]
     });
-
-    console.log(this.addForm.valid);
   }
 
   addParty(): void {

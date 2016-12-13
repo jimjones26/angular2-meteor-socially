@@ -1,4 +1,5 @@
-<form[formGroup]="addForm" (ngSubmit)="addParty()">
+<div *ngIf="!user">Please, log in to add a party</div>
+<form *ngIf="user" [formGroup]="addForm" (ngSubmit)="addParty()">
   <label>Name</label>
   <input type="text" formControlName="name">
  
