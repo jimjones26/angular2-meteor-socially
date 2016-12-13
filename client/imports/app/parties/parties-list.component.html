@@ -1,5 +1,7 @@
 <div>
-  <app-parties-form></app-parties-form>
+  <app-parties-form style="float: left"></app-parties-form>
+  <input type="text" #searchtext placeholder="Search by Location">
+  <button type="button" (click)="search(searchtext.value)">Search</button>
   <login-buttons></login-buttons>
   <ul>
     <li *ngFor="let party of parties | async">
