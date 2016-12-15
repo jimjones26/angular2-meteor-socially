@@ -1,15 +1,21 @@
 <div>
   <app-parties-form style="float: left"></app-parties-form>
-  <input type="text" #searchtext placeholder="Search by Location">
-  <button type="button" (click)="search(searchtext.value)">Search</button>
-  <login-buttons></login-buttons>
-  <ul>
-    <li *ngFor="let party of parties | async">
-      <a [routerLink]="['/party', party._id]">{{party.name}}</a>
-      <p>{{party.description}}</p>
-      <p>{{party.location}}</p>
-      <button *ngIf="user" (click)="removeParty(party)">X</button>
-    </li>
-  </ul>
-  <pagination-controls (pageChange)="onPageChanged($event)"></pagination-controls>
+<input type="text" #searchtext placeholder="Search by Location">
+<button type="button" (click)="search(searchtext.value)">Search</button>
+<login-buttons></login-buttons>
+<div>
+  <select #sort (change)="changeSortOrder(sort.value)">
+      <option value="1" selected>Ascending</option>
+      <option value="-1">Descending</option>
+    </select>
+</div>
+<ul>
+  <li *ngFor="let party of parties | async">
+    <a [routerLink]="['/party', party._id]">{{party.name}}</a>
+    <p>{{party.description}}</p>
+    <p>{{party.location}}</p>
+    <button *ngIf="user" (click)="removeParty(party)">X</button>
+  </li>
+</ul>
+<pagination-controls (pageChange)="onPageChanged($event)"></pagination-controls>
 </div>
