@@ -26,4 +26,13 @@ export function loadParties() {
 
     parties.forEach((party: Party) => Parties.insert(party));
   }
+
+  for (let i = 0; i < 27; i++) {
+    Parties.insert({
+      name: Fake.sentence(50),
+      location: Fake.sentence(10),
+      description: Fake.sentence(100),
+      public: true
+    });
+  }
 }
