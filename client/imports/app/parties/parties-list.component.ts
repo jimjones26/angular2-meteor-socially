@@ -35,6 +35,7 @@ export class PartiesListComponent implements OnInit, OnDestroy {
   optionsSub: Subscription;
   partiesSize: number = 0;
   autorunSub: Subscription;
+  location: Subject<string> = new Subject<string>();
   user: Meteor.User;
 
   constructor(private paginationService: PaginationService) { }
@@ -43,8 +44,9 @@ export class PartiesListComponent implements OnInit, OnDestroy {
     this.optionsSub = Observable.combineLatest(
       this.pageSize,
       this.curPage,
-      this.nameOrder
-    ).subscribe(([pageSize, curPage, nameOrder]) => {
+      this.nameOrder,
+      this.location
+    ).subscribe(([pageSize, curPage, nameOrder, location]) => {
       const options: Options = {
         limit: pageSize as number,
         skip: ((curPage as number) - 1) * (pageSize as number),
@@ -57,7 +59,7 @@ export class PartiesListComponent implements OnInit, OnDestroy {
         this.partiesSub.unsubscribe();
       }
 
-      this.partiesSub = MeteorObservable.subscribe('parties', options).subscribe(() => {
+      this.partiesSub = MeteorObservable.subscribe('parties', options, location).subscribe(() => {
         this.parties = Parties.find({}, {
           sort: {
             name: nameOrder
@@ -76,6 +78,7 @@ export class PartiesListComponent implements OnInit, OnDestroy {
     this.pageSize.next(10);
     this.curPage.next(1);
     this.nameOrder.next(1);
+    this.location.next('');
 
     this.autorunSub = MeteorObservable.autorun().subscribe(() => {
       this.partiesSize = Counts.get('numberOfParties');
@@ -88,7 +91,8 @@ export class PartiesListComponent implements OnInit, OnDestroy {
   }
 
   search(value: string): void {
-    this.parties = Parties.find(value ? { location: value } : {}).zone();
+    this.curPage.next(1);
+    this.location.next(value);
   }
 
   onPageChanged(page: number): void {
